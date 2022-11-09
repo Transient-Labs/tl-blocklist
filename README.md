@@ -12,4 +12,4 @@ Theoretically, this modifier could be applied to other functions, but we HIGHLY 
 To implement the `BlockList.sol` contract, please make sure to add a function to the inheriting contract that can call the internal `_setBlockListStatus` function.
 
 ## License
-This code is copyright Transient Labs, Inc 2022 and is licensed under the Apache-2.0 license. The name "Story Contract" is also copyrighted by Transient Labs, Inc.
+This code is copyright Transient Labs, Inc 2022 and is licensed under the Apache-2.0 license. The name "BlockList" is also copyrighted by Transient Labs, Inc.
