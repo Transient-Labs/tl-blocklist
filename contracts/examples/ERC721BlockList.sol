@@ -15,17 +15,16 @@ contract ERC721BlockList is ERC721, Ownable, BlockList {
     uint256 private _counter;
 
     //================= Constructor =================//
-    constructor() ERC721("Test", "TST") Ownable() {}
+    constructor()
+    ERC721("Test", "TST")
+    Ownable() 
+    BlockList(msg.sender)
+    {}
 
     //================= Mint =================//
     function mint() external onlyOwner {
         _counter++;
         _mint(msg.sender, _counter);
-    }
-
-    //================= BlockList =================//
-    function setBlockListStatus(address operator, bool status) external onlyOwner {
-        _setBlockListStatus(operator, status);
     }
 
     //================= Overrides =================//

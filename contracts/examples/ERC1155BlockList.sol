@@ -15,17 +15,16 @@ contract ERC1155BlockList is ERC1155, Ownable, BlockList {
     uint256 private _counter;
 
     //================= Constructor =================//
-    constructor() ERC1155("") Ownable() {}
+    constructor()
+    ERC1155("")
+    Ownable()
+    BlockList(msg.sender)
+    {}
 
     //================= Mint =================//
     function mint(uint256 numToMint) external onlyOwner {
         _counter++;
         _mint(msg.sender, _counter, numToMint, "");
-    }
-
-    //================= BlockList =================//
-    function setBlockListStatus(address operator, bool status) external onlyOwner {
-        _setBlockListStatus(operator, status);
     }
 
     //================= Overrides =================//
