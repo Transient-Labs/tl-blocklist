@@ -74,13 +74,14 @@ abstract contract BlockList {
     }
 
     //================= Setter Functions =================//
-    /// @notice function to set the block list status
+    /// @notice function to set the block list status for multiple operators
     /// @dev must be called by the blockList owner
     /// @dev the blockList owner is likely the same as the owner of the token contract 
     ///      but this could be different under certain applications
-    function setBlockListStatus(address operator, bool status) external isBlockListOwner {
-        _blockList[_c][operator] = status;
-        emit BlockListStatusChange(msg.sender, operator, status);
+    function setBlockListStatus(address[] calldata operators, bool status) external isBlockListOwner {
+        for (uint256 i = 0; i < operators.length; i++) {
+            _setBlockListStatus(operators[i], status);
+        }
     }
 
     /// @notice function to clear the block list status
@@ -103,5 +104,11 @@ abstract contract BlockList {
         address oldOwner = blockListOwner;
         blockListOwner = newOwner;
         emit BlockListOwnershipTransferred(oldOwner, newOwner);
+    }
+
+    /// @notice internal function to set blockList status for one operator
+    function _setBlockListStatus(address operator, bool status) internal {
+        _blockList[_c][operator] = status;
+        emit BlockListStatusChange(msg.sender, operator, status);
     }
 }
