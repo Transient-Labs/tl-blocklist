@@ -35,6 +35,7 @@ abstract contract BlockList {
     //================= Events =================//
     event BlockListStatusChange(address indexed user, address indexed operator, bool indexed status);
     event BlockListCleared(address indexed user);
+    event BlockListOwnershipTransferred(address indexed oldOwner, address indexed newOwner);
 
     //================= Modifiers =================//
     /// @dev modifier to gate setter functions
@@ -46,7 +47,7 @@ abstract contract BlockList {
     }
     /// @dev modifier that can be applied to approval functions in order to block listings on marketplaces
     modifier notBlocked(address operator) {
-        if (_blockList[_c][operator]) {
+        if (_getBlockListStatus(operator)) {
             revert IsBlockedOperator();
         }
         _;
@@ -54,13 +55,22 @@ abstract contract BlockList {
 
     //================= Constructor =================//
     constructor(address initBlockListOwner) {
-        blockListOwner = initBlockListOwner;
+        _setBlockListOwner(initBlockListOwner);
+    }
+
+    //================= Ownership Functions =================//
+    /// @notice function to transfer ownership of the blockList
+    /// @dev requires blockList owner
+    /// @dev can be transferred to the ZERO_ADDRESS if desired
+    /// @dev BE VERY CAREFUL USING THIS
+    function transferBlockListOwnership(address newBlockListOwner) public isBlockListOwner {
+        _setBlockListOwner(newBlockListOwner);
     }
 
     //================= View Function =================//
-    /// @dev function to get blocklist status with True meaning that the operator is blocked
+    /// @notice function to get blocklist status with True meaning that the operator is blocked
     function getBlockListStatus(address operator) public view returns (bool) {
-        return _blockList[_c][operator];
+        return _getBlockListStatus(operator);
     }
 
     //================= Setter Functions =================//
@@ -80,5 +90,18 @@ abstract contract BlockList {
     function clearBlockList() external isBlockListOwner {
         _c++;
         emit BlockListCleared(msg.sender);
+    }
+
+    //================= Helper Functions =================//
+    /// @notice internal function to get blockList status
+    function _getBlockListStatus(address operator) internal view returns (bool) {
+        return _blockList[_c][operator];
+    }
+
+    /// @notice internal function to set blockList owner
+    function _setBlockListOwner(address newOwner) internal {
+        address oldOwner = blockListOwner;
+        blockListOwner = newOwner;
+        emit BlockListOwnershipTransferred(oldOwner, newOwner);
     }
 }
