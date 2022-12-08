@@ -11,5 +11,12 @@ Theoretically, this modifier could be applied to other functions, but we HIGHLY 
 
 To implement the `BlockList.sol` contract, please make sure to add a function to the inheriting contract that can call the internal `_setBlockListStatus` function.
 
+## Disclaimer
+We have verified with OpenSea engineers that BlockList is fully compatible with their royalties enforcement system, as of 11/7/2022.
+
+This codebase is provided on an "as is" and "as available" basis.
+
+We do not give any warranties and will not be liable for any loss incurred through any use of this codebase.
+
 ## License
-This code is copyright Transient Labs, Inc 2022 and is licensed under the Apache-2.0 license. The name "BlockList" is also copyrighted by Transient Labs, Inc.
+This code is copyright Transient Labs, Inc 2022 and is licensed under the Apache-2.0 license.
