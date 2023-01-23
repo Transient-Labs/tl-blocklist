@@ -16,7 +16,7 @@ import {BlockListRegistry} from "./BlockListRegistry.sol";
 /// @title BlockListFactory
 /// @notice contract factory to deploy blocklist registries.
 /// @author transientlabs.xyz
-contract BlockListFactory is OwnableAccessControl {
+contract BlockListRegistryFactory is OwnableAccessControl {
     /*//////////////////////////////////////////////////////////////////////////
                                 Events
     //////////////////////////////////////////////////////////////////////////*/
