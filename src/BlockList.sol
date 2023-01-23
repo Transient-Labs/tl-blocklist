@@ -2,13 +2,12 @@
 pragma solidity 0.8.17;
 
 /**
-    ____        _ __    __   ____  _ ________                     __ 
-   / __ )__  __(_) /___/ /  / __ \(_) __/ __/__  ________  ____  / /_
-  / __  / / / / / / __  /  / / / / / /_/ /_/ _ \/ ___/ _ \/ __ \/ __/
- / /_/ / /_/ / / / /_/ /  / /_/ / / __/ __/  __/ /  /  __/ / / / /_  
-/_____/\__,_/_/_/\__,_/  /_____/_/_/ /_/  \___/_/   \___/_/ /_/\__/  
-                                                                    
-*/
+ * ____        _ __    __   ____  _ ________                     __
+ *    / __ )__  __(_) /___/ /  / __ \(_) __/ __/__  ________  ____  / /_
+ *   / __  / / / / / / __  /  / / / / / /_/ /_/ _ \/ ___/ _ \/ __ \/ __/
+ *  / /_/ / /_/ / / / /_/ /  / /_/ / / __/ __/  __/ /  /  __/ / / / /_
+ * /_____/\__,_/_/_/\__,_/  /_____/_/_/ /_/  \___/_/   \___/_/ /_/\__/
+ */
 
 import {Initializable} from "openzeppelin-upgradeable/proxy/utils/Initializable.sol";
 import {OwnableAccessControlUpgradeable} from "tl-sol-tools/upgradeable/access/OwnableAccessControlUpgradeable.sol";
@@ -19,7 +18,6 @@ import {IBlockListRegistry} from "./IBlockListRegistry.sol";
 ///         approvals from non-royalty paying marketplaces
 /// @author transientlabs.xyz
 abstract contract BlockList is Initializable, OwnableAccessControlUpgradeable {
-
     /*//////////////////////////////////////////////////////////////////////////
                                 Public State Variables
     //////////////////////////////////////////////////////////////////////////*/
@@ -30,10 +28,7 @@ abstract contract BlockList is Initializable, OwnableAccessControlUpgradeable {
                                 Events
     //////////////////////////////////////////////////////////////////////////*/
 
-    event BlockListRegistryUpdated(
-        address indexed oldRegistry,
-        address indexed newRegistry
-    );
+    event BlockListRegistryUpdated(address indexed oldRegistry, address indexed newRegistry);
 
     /*//////////////////////////////////////////////////////////////////////////
                                 Custom Errors
@@ -57,12 +52,10 @@ abstract contract BlockList is Initializable, OwnableAccessControlUpgradeable {
     /*//////////////////////////////////////////////////////////////////////////
                                 Initializer
     //////////////////////////////////////////////////////////////////////////*/
-    
-    function __BlockList_init(address blockListRegistryAddr)
-        internal
-        onlyInitializing
-    {
+
+    function __BlockList_init(address newOwner, address blockListRegistryAddr) internal onlyInitializing {
         blockListRegistry = IBlockListRegistry(blockListRegistryAddr);
+        __OwnableAccessControl_init(newOwner);
     }
 
     /*//////////////////////////////////////////////////////////////////////////
@@ -73,10 +66,7 @@ abstract contract BlockList is Initializable, OwnableAccessControlUpgradeable {
     /// @dev requires blockList owner
     /// @dev can be transferred to the ZERO_ADDRESS if desired
     /// @dev BE VERY CAREFUL USING THIS
-    function updateBlockListRegistry(address newBlockListRegistry)
-        public
-        onlyOwner
-    {
+    function updateBlockListRegistry(address newBlockListRegistry) public onlyOwner {
         blockListRegistry = IBlockListRegistry(newBlockListRegistry);
     }
 
@@ -87,9 +77,9 @@ abstract contract BlockList is Initializable, OwnableAccessControlUpgradeable {
     /// @notice function to get blocklist status with True meaning that the operator is blocked
     function getBlockListStatus(address operator) public view returns (bool) {
         try blockListRegistry.getBlockListStatus(operator) returns (bool isBlocked) {
-          return isBlocked;
+            return isBlocked;
         } catch {
-          return false;
+            return false;
         }
     }
 }
