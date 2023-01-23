@@ -15,10 +15,11 @@ install:
 	forge install foundry-rs/forge-std
 	forge install OpenZeppelin/openzeppelin-contracts@v4.8.0
 	forge install OpenZeppelin/openzeppelin-contracts-upgradeable@v4.8.0
+	forge install Transient-Labs/tl-sol-tools@1.0.0
 
 # Builds
 build:
-	forge clean && forge build --optimize --optimizer-runs 2000
+	forge fmt && forge clean && forge build --optimize --optimizer-runs 2000
 
 # Tests
 test-suite:
