@@ -13,11 +13,12 @@ pragma solidity 0.8.17;
  * /_____/\__,_/_/_/\__,_/  /_____/_/_/ /_/  \___/_/   \___/_/ /_/\__/
  */
 
+import {Initializable} from "openzeppelin-upgradeable/proxy/utils/Initializable.sol";
 import {IBlockListRegistry} from "./IBlockListRegistry.sol";
 
 /// @notice abstract contract that can be inherited to block
 ///         approvals from non-royalty paying marketplaces
-abstract contract BlockList {
+abstract contract BlockListUpgradeable is Initializable {
     /*//////////////////////////////////////////////////////////////////////////
                                 Public State Variables
     //////////////////////////////////////////////////////////////////////////*/
@@ -43,26 +44,31 @@ abstract contract BlockList {
     }
 
     /*//////////////////////////////////////////////////////////////////////////
-                                Constructor
+                                Initializer
     //////////////////////////////////////////////////////////////////////////*/
 
     /// @param blockListRegistryAddr - the initial BlockList Registry Address
-    constructor(address blockListRegistryAddr) {
+    function __BlockList_init(address blockListRegistryAddr) internal onlyInitializing {
+        __BlockList_init_unchained(blockListRegistryAddr);
+    }
+
+    /// @param blockListRegistryAddr - the initial BlockList Registry Address
+    function __BlockList_init_unchained(address blockListRegistryAddr) internal onlyInitializing {
         blockListRegistry = IBlockListRegistry(blockListRegistryAddr);
     }
 
     /*//////////////////////////////////////////////////////////////////////////
-                                Admin Functions
+                            Admin Functions
     //////////////////////////////////////////////////////////////////////////*/
 
     /// @notice function to transfer ownership of the blockList
-    /// @dev requires blockList admin
+    /// @dev requires blockList owner
     /// @dev can be transferred to the ZERO_ADDRESS if desired
     /// @dev BE VERY CAREFUL USING THIS
     /// @param newBlockListRegistry - the address of the new BlockList registry
     function updateBlockListRegistry(address newBlockListRegistry) public {
         if (!isBlockListAdmin(msg.sender)) revert Unauthorized();
-
+        
         address oldRegistry = address(blockListRegistry);
         blockListRegistry = IBlockListRegistry(newBlockListRegistry);
         emit BlockListRegistryUpdated(msg.sender, oldRegistry, newBlockListRegistry);
@@ -82,9 +88,17 @@ abstract contract BlockList {
         }
     }
 
-    /// @notice Abstract function to determine if an address is a blocklist admin.
+    /// @notice Abstract function to determine if the operator is a blocklist admin.
     /// @param potentialAdmin - the potential admin address to check
     function isBlockListAdmin(address potentialAdmin) public view virtual returns (bool);
+
+    /*//////////////////////////////////////////////////////////////////////////
+                                Upgradeability Gap
+    //////////////////////////////////////////////////////////////////////////*/
+
+    /// @dev gap variable - see https://docs.openzeppelin.com/contracts/4.x/upgradeable#storage_gaps
+    uint256[50] private _gap;
+
 }
 
 /*//////////////////////////////////////////////////////////////////////////

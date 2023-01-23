@@ -9,14 +9,14 @@ pragma solidity 0.8.17;
  * /_____/\__,_/_/_/\__,_/  /_____/_/_/ /_/  \___/_/   \___/_/ /_/\__/
  */
 
-import {OwnableAccessControl} from "tl-sol-tools/access/OwnableAccessControl.sol";
+import {Ownable} from "openzeppelin/access/Ownable.sol";
 import {Clones} from "openzeppelin/proxy/Clones.sol";
 import {BlockListRegistry} from "./BlockListRegistry.sol";
 
 /// @title BlockListFactory
 /// @notice contract factory to deploy blocklist registries.
 /// @author transientlabs.xyz
-contract BlockListRegistryFactory is OwnableAccessControl {
+contract BlockListRegistryFactory is Ownable {
     /*//////////////////////////////////////////////////////////////////////////
                                 Events
     //////////////////////////////////////////////////////////////////////////*/
@@ -33,7 +33,7 @@ contract BlockListRegistryFactory is OwnableAccessControl {
     /*//////////////////////////////////////////////////////////////////////////
                                 Constructor
     //////////////////////////////////////////////////////////////////////////*/
-    constructor() {
+    constructor() Ownable() {
         blockListRegistryTemplate = address(new BlockListRegistry());
     }
 

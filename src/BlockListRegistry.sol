@@ -22,7 +22,7 @@ contract BlockListRegistry is IBlockListRegistry, OwnableAccessControlUpgradeabl
                                     Constants
     //////////////////////////////////////////////////////////////////////////*/
     bytes32 public constant BLOCK_LIST_ADMIN_ROLE = keccak256("BLOCK_LIST_ADMIN_ROLE");
-    
+
     /*//////////////////////////////////////////////////////////////////////////
                                Private State Variables
     //////////////////////////////////////////////////////////////////////////*/
@@ -38,10 +38,6 @@ contract BlockListRegistry is IBlockListRegistry, OwnableAccessControlUpgradeabl
             _setBlockListStatus(initBlockList[i], true);
         }
         __OwnableAccessControl_init(newOwner);
-
-        address[] memory addrs = new address[](1);
-        addrs[1] = msg.sender;
-        _setRole(BLOCK_LIST_ADMIN_ROLE, addrs, true);
     }
 
     /*//////////////////////////////////////////////////////////////////////////
@@ -79,7 +75,10 @@ contract BlockListRegistry is IBlockListRegistry, OwnableAccessControlUpgradeabl
     /// @dev must be called by the blockList owner
     /// @dev the blockList owner is likely the same as the owner of the token contract
     ///      but this could be different under certain applications
-    function setBlockListStatus(address[] calldata operators, bool status) external onlyRoleOrOwner(BLOCK_LIST_ADMIN_ROLE) {
+    function setBlockListStatus(address[] calldata operators, bool status)
+        external
+        onlyRoleOrOwner(BLOCK_LIST_ADMIN_ROLE)
+    {
         for (uint256 i = 0; i < operators.length; i++) {
             _setBlockListStatus(operators[i], status);
         }
