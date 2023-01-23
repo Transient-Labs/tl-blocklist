@@ -10,14 +10,13 @@ pragma solidity 0.8.17;
  */
 
 import {Initializable} from "openzeppelin-upgradeable/proxy/utils/Initializable.sol";
-import {OwnableAccessControlUpgradeable} from "tl-sol-tools/upgradeable/access/OwnableAccessControlUpgradeable.sol";
 import {IBlockListRegistry} from "./IBlockListRegistry.sol";
 
 /// @title BlockList
 /// @notice abstract contract that can be inherited to block
 ///         approvals from non-royalty paying marketplaces
 /// @author transientlabs.xyz
-abstract contract BlockList is Initializable, OwnableAccessControlUpgradeable {
+abstract contract BlockList is Initializable {
     /*//////////////////////////////////////////////////////////////////////////
                                 Public State Variables
     //////////////////////////////////////////////////////////////////////////*/
@@ -28,14 +27,7 @@ abstract contract BlockList is Initializable, OwnableAccessControlUpgradeable {
                                 Events
     //////////////////////////////////////////////////////////////////////////*/
 
-    event BlockListRegistryUpdated(address indexed oldRegistry, address indexed newRegistry);
-
-    /*//////////////////////////////////////////////////////////////////////////
-                                Custom Errors
-    //////////////////////////////////////////////////////////////////////////*/
-
-    /// @dev blocked operator error
-    error BlockedOperator();
+    event BlockListRegistryUpdated(address indexed caller, address indexed oldRegistry, address indexed newRegistry);
 
     /*//////////////////////////////////////////////////////////////////////////
                                 Modifiers
@@ -53,9 +45,8 @@ abstract contract BlockList is Initializable, OwnableAccessControlUpgradeable {
                                 Initializer
     //////////////////////////////////////////////////////////////////////////*/
 
-    function __BlockList_init(address newOwner, address blockListRegistryAddr) internal onlyInitializing {
+    function __BlockList_init(address blockListRegistryAddr) internal onlyInitializing {
         blockListRegistry = IBlockListRegistry(blockListRegistryAddr);
-        __OwnableAccessControl_init(newOwner);
     }
 
     /*//////////////////////////////////////////////////////////////////////////
@@ -66,8 +57,11 @@ abstract contract BlockList is Initializable, OwnableAccessControlUpgradeable {
     /// @dev requires blockList owner
     /// @dev can be transferred to the ZERO_ADDRESS if desired
     /// @dev BE VERY CAREFUL USING THIS
-    function updateBlockListRegistry(address newBlockListRegistry) public onlyOwner {
+    function updateBlockListRegistry(address newBlockListRegistry) public {
+        if (!isBlockListAdmin(msg.sender)) revert Unauthorized();
+        address oldRegistry = address(blockListRegistry);
         blockListRegistry = IBlockListRegistry(newBlockListRegistry);
+        emit BlockListRegistryUpdated(msg.sender, oldRegistry, newBlockListRegistry);
     }
 
     /*//////////////////////////////////////////////////////////////////////////
@@ -82,4 +76,17 @@ abstract contract BlockList is Initializable, OwnableAccessControlUpgradeable {
             return false;
         }
     }
+
+    /// @notice Abstract function to determine if the operator is a blocklist admin.
+    function isBlockListAdmin(address operator) public virtual returns (bool);
 }
+
+/*//////////////////////////////////////////////////////////////////////////
+                                Custom Errors
+//////////////////////////////////////////////////////////////////////////*/
+
+/// @dev blocked operator error
+error BlockedOperator();
+
+/// @dev unauthorized to call fn method
+error Unauthorized();

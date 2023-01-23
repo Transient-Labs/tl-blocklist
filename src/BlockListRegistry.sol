@@ -11,7 +11,7 @@ pragma solidity 0.8.17;
 
 import {ERC165Upgradeable} from "openzeppelin-upgradeable/utils/introspection/ERC165Upgradeable.sol";
 import {OwnableAccessControlUpgradeable} from "tl-sol-tools/upgradeable/access/OwnableAccessControlUpgradeable.sol";
-import {IBlockListRegistry} from "./IBlockListRegistry.sol";
+import {NotBlockListOwner, IBlockListRegistry} from "./IBlockListRegistry.sol";
 
 /// @title BlockList
 /// @notice abstract contract that can be inherited to block
@@ -19,23 +19,16 @@ import {IBlockListRegistry} from "./IBlockListRegistry.sol";
 /// @author transientlabs.xyz
 contract BlockListRegistry is IBlockListRegistry, OwnableAccessControlUpgradeable, ERC165Upgradeable {
     /*//////////////////////////////////////////////////////////////////////////
+                                    Constants
+    //////////////////////////////////////////////////////////////////////////*/
+    bytes32 public constant BLOCK_LIST_ADMIN_ROLE = keccak256("BLOCK_LIST_ADMIN_ROLE");
+    
+    /*//////////////////////////////////////////////////////////////////////////
                                Private State Variables
     //////////////////////////////////////////////////////////////////////////*/
 
     uint256 private _c; // variable that allows reset for `_blockList`
     mapping(uint256 => mapping(address => bool)) private _blockList;
-
-    /*//////////////////////////////////////////////////////////////////////////
-                                Modifiers
-    //////////////////////////////////////////////////////////////////////////*/
-
-    /// @dev modifier to gate setter functions
-    modifier isBlockListOwner() {
-        if (msg.sender != owner()) {
-            revert NotBlockListOwner();
-        }
-        _;
-    }
 
     /*//////////////////////////////////////////////////////////////////////////
                                 Constructor
@@ -45,6 +38,10 @@ contract BlockListRegistry is IBlockListRegistry, OwnableAccessControlUpgradeabl
             _setBlockListStatus(initBlockList[i], true);
         }
         __OwnableAccessControl_init(newOwner);
+
+        address[] memory addrs = new address[](1);
+        addrs[1] = msg.sender;
+        _setRole(BLOCK_LIST_ADMIN_ROLE, addrs, true);
     }
 
     /*//////////////////////////////////////////////////////////////////////////
@@ -55,7 +52,7 @@ contract BlockListRegistry is IBlockListRegistry, OwnableAccessControlUpgradeabl
     /// @dev must be called by the blockList owner
     /// @dev the blockList owner is likely the same as the owner of the token contract
     ///      but this could be different under certain applications
-    function clearBlockList() external isBlockListOwner {
+    function clearBlockList() external onlyRoleOrOwner(BLOCK_LIST_ADMIN_ROLE) {
         _c++;
         emit BlockListCleared(msg.sender);
     }
@@ -82,7 +79,7 @@ contract BlockListRegistry is IBlockListRegistry, OwnableAccessControlUpgradeabl
     /// @dev must be called by the blockList owner
     /// @dev the blockList owner is likely the same as the owner of the token contract
     ///      but this could be different under certain applications
-    function setBlockListStatus(address[] calldata operators, bool status) external isBlockListOwner {
+    function setBlockListStatus(address[] calldata operators, bool status) external onlyRoleOrOwner(BLOCK_LIST_ADMIN_ROLE) {
         for (uint256 i = 0; i < operators.length; i++) {
             _setBlockListStatus(operators[i], status);
         }
