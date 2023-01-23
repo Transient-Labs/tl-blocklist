@@ -2,14 +2,14 @@
 pragma solidity 0.8.17;
 
 /**
- * ____        _ __    __   ____  _ ________                     __
+ *     ____        _ __    __   ____  _ ________                     __
  *    / __ )__  __(_) /___/ /  / __ \(_) __/ __/__  ________  ____  / /_
  *   / __  / / / / / / __  /  / / / / / /_/ /_/ _ \/ ___/ _ \/ __ \/ __/
  *  / /_/ / /_/ / / / /_/ /  / /_/ / / __/ __/  __/ /  /  __/ / / / /_
  * /_____/\__,_/_/_/\__,_/  /_____/_/_/ /_/  \___/_/   \___/_/ /_/\__/
  */
 
-/// @title BlockList
+/// @title BlockList Registry
 /// @notice interface for the BlockListRegistry Contract
 /// @author transientlabs.xyz
 interface IBlockListRegistry {
@@ -42,10 +42,3 @@ interface IBlockListRegistry {
     /// @dev must be called by the blockList owner
     function clearBlockList() external;
 }
-
-/*//////////////////////////////////////////////////////////////////////////
-                                Custom Errors
-//////////////////////////////////////////////////////////////////////////*/
-
-/// @dev not blocklist owner error
-error NotBlockListOwner();

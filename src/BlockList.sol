@@ -13,11 +13,12 @@ pragma solidity 0.8.17;
  * /_____/\__,_/_/_/\__,_/  /_____/_/_/ /_/  \___/_/   \___/_/ /_/\__/
  */
 
+import {BlockedOperator, Unauthorized, IBlockList} from "./IBlockList.sol";
 import {IBlockListRegistry} from "./IBlockListRegistry.sol";
 
 /// @notice abstract contract that can be inherited to block
 ///         approvals from non-royalty paying marketplaces
-abstract contract BlockList {
+abstract contract BlockList is IBlockList {
     /*//////////////////////////////////////////////////////////////////////////
                                 Public State Variables
     //////////////////////////////////////////////////////////////////////////*/
@@ -72,9 +73,8 @@ abstract contract BlockList {
                           Public Read Functions
     //////////////////////////////////////////////////////////////////////////*/
 
-    /// @notice function to get blocklist status with True meaning that the operator is blocked
-    /// @param operator - operator to check against for blocking
-    function getBlockListStatus(address operator) public view returns (bool) {
+    /// @inheritdoc IBlockList
+    function getBlockListStatus(address operator) public view override returns (bool) {
         try blockListRegistry.getBlockListStatus(operator) returns (bool isBlocked) {
             return isBlocked;
         } catch {
@@ -86,13 +86,3 @@ abstract contract BlockList {
     /// @param potentialAdmin - the potential admin address to check
     function isBlockListAdmin(address potentialAdmin) public view virtual returns (bool);
 }
-
-/*//////////////////////////////////////////////////////////////////////////
-                                Custom Errors
-//////////////////////////////////////////////////////////////////////////*/
-
-/// @dev blocked operator error
-error BlockedOperator();
-
-/// @dev unauthorized to call fn method
-error Unauthorized();

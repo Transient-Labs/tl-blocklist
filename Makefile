@@ -19,7 +19,7 @@ install:
 
 # Builds
 build:
-	forge clean && forge build --optimize --optimizer-runs 2000
+	forge fmt && forge clean && forge build --optimize --optimizer-runs 2000
 
 # Tests
 test-suite:

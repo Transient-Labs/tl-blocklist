@@ -14,11 +14,12 @@ pragma solidity 0.8.17;
  */
 
 import {Initializable} from "openzeppelin-upgradeable/proxy/utils/Initializable.sol";
+import {BlockedOperator, Unauthorized, IBlockList} from "./IBlockList.sol";
 import {IBlockListRegistry} from "./IBlockListRegistry.sol";
 
 /// @notice abstract contract that can be inherited to block
 ///         approvals from non-royalty paying marketplaces
-abstract contract BlockListUpgradeable is Initializable {
+abstract contract BlockListUpgradeable is Initializable, IBlockList {
     /*//////////////////////////////////////////////////////////////////////////
                                 Public State Variables
     //////////////////////////////////////////////////////////////////////////*/
@@ -68,7 +69,7 @@ abstract contract BlockListUpgradeable is Initializable {
     /// @param newBlockListRegistry - the address of the new BlockList registry
     function updateBlockListRegistry(address newBlockListRegistry) public {
         if (!isBlockListAdmin(msg.sender)) revert Unauthorized();
-        
+
         address oldRegistry = address(blockListRegistry);
         blockListRegistry = IBlockListRegistry(newBlockListRegistry);
         emit BlockListRegistryUpdated(msg.sender, oldRegistry, newBlockListRegistry);
@@ -78,9 +79,8 @@ abstract contract BlockListUpgradeable is Initializable {
                           Public Read Functions
     //////////////////////////////////////////////////////////////////////////*/
 
-    /// @notice function to get blocklist status with True meaning that the operator is blocked
-    /// @param operator - operator to check against for blocking
-    function getBlockListStatus(address operator) public view returns (bool) {
+    /// @inheritdoc IBlockList
+    function getBlockListStatus(address operator) public view override returns (bool) {
         try blockListRegistry.getBlockListStatus(operator) returns (bool isBlocked) {
             return isBlocked;
         } catch {
@@ -98,15 +98,4 @@ abstract contract BlockListUpgradeable is Initializable {
 
     /// @dev gap variable - see https://docs.openzeppelin.com/contracts/4.x/upgradeable#storage_gaps
     uint256[50] private _gap;
-
 }
-
-/*//////////////////////////////////////////////////////////////////////////
-                                Custom Errors
-//////////////////////////////////////////////////////////////////////////*/
-
-/// @dev blocked operator error
-error BlockedOperator();
-
-/// @dev unauthorized to call fn method
-error Unauthorized();
