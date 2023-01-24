@@ -50,6 +50,7 @@ abstract contract BlockList is IBlockList {
     /// @param blockListRegistryAddr - the initial BlockList Registry Address
     constructor(address blockListRegistryAddr) {
         blockListRegistry = IBlockListRegistry(blockListRegistryAddr);
+        emit BlockListRegistryUpdated(msg.sender, address(0), blockListRegistryAddr);
     }
 
     /*//////////////////////////////////////////////////////////////////////////

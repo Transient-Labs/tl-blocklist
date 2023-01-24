@@ -21,8 +21,6 @@ interface IBlockListRegistry {
 
     event BlockListCleared(address indexed user);
 
-    event BlockListOwnershipTransferred(address indexed oldOwner, address indexed newOwner);
-
     /*//////////////////////////////////////////////////////////////////////////
                           Public Read Functions
     //////////////////////////////////////////////////////////////////////////*/

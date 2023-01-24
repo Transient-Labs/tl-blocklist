@@ -35,7 +35,7 @@ contract BlockListRegistry is IBlockListRegistry, OwnableAccessControlUpgradeabl
     //////////////////////////////////////////////////////////////////////////*/
 
     /// @param newOwner - the initial owner of this contract
-    /// @param initBlockList - initial list of addresses to add to the blocklist (max of 255)
+    /// @param initBlockList - initial list of addresses to add to the blocklist
     function initialize(address newOwner, address[] memory initBlockList) external initializer {
         uint256 len = initBlockList.length;
         for (uint8 i = 0; i < len; i++) {
@@ -82,13 +82,11 @@ contract BlockListRegistry is IBlockListRegistry, OwnableAccessControlUpgradeabl
     /// @dev the blockList owner is likely the same as the owner of the token contract
     ///      but this could be different under certain applications. This implementation
     ///      makes no assumption of this though as it is standalone from the token contract.
-    /// @dev maximum number of operators in one call is 255
     function setBlockListStatus(address[] calldata operators, bool status)
         external
         onlyRoleOrOwner(BLOCK_LIST_ADMIN_ROLE)
     {
-        uint256 len = operators.length;
-        for (uint8 i = 0; i < len; i++) {
+        for (uint256 i = 0; i < operators.length; i++) {
             _setBlockListStatus(operators[i], status);
         }
     }
