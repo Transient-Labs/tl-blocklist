@@ -33,8 +33,8 @@ contract BlockListRegistryFactory is Ownable {
     /*//////////////////////////////////////////////////////////////////////////
                                 Constructor
     //////////////////////////////////////////////////////////////////////////*/
-    constructor() Ownable() {
-        blockListRegistryTemplate = address(new BlockListRegistry());
+    constructor(address initRegistryTemplate) Ownable() {
+        blockListRegistryTemplate = initRegistryTemplate;
     }
 
     /*//////////////////////////////////////////////////////////////////////////
@@ -54,9 +54,11 @@ contract BlockListRegistryFactory is Ownable {
 
     /// @notice Creates a new blocklist registry with an initial list that can be added to later.
     /// @param initBlockList Initial list to active on the blocklist registry.
-    function createBlockListRegistry(address[] calldata initBlockList) external {
+    /// @return address with the registry address
+    function createBlockListRegistry(address[] calldata initBlockList) external returns(address) {
         address registry = Clones.clone(blockListRegistryTemplate);
         BlockListRegistry(registry).initialize(msg.sender, initBlockList);
         emit BlockListRegistryCreated(msg.sender, blockListRegistryTemplate, registry);
+        return registry;
     }
 }

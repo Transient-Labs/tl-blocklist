@@ -6,13 +6,12 @@ import {ERC721} from "openzeppelin/token/ERC721/ERC721.sol";
 import {OwnableAccessControl} from "tl-sol-tools/access/OwnableAccessControl.sol";
 
 contract BlockListMock is ERC721, OwnableAccessControl, BlockList {
-
     uint256 private _counter;
 
     constructor(address newBlockListRegistry)
-    ERC721("Mock", "MOCK")
-    OwnableAccessControl()
-    BlockList(newBlockListRegistry)
+        ERC721("Mock", "MOCK")
+        OwnableAccessControl()
+        BlockList(newBlockListRegistry)
     {}
 
     /// @inheritdoc BlockList

@@ -7,7 +7,6 @@ import {BlockListRegistry, IBlockListRegistry} from "../../src/BlockListRegistry
 import {IERC165Upgradeable} from "openzeppelin-upgradeable/utils/introspection/IERC165Upgradeable.sol";
 
 contract BlockListRegistryUnitTest is Test, BlockListRegistry {
-
     address[] public initBlockedOperators = [address(1), address(2), address(3)];
     bytes32 public constant NOT_ADMIN_ROLE = keccak256("NOT_ADMIN_ROLE");
     BlockListRegistry public blocklist;
@@ -70,7 +69,6 @@ contract BlockListRegistryUnitTest is Test, BlockListRegistry {
     }
 
     function testAccessControl(address user) public {
-
         // set admins for testing
         address[] memory admins = new address[](3);
         admins[0] = makeAddr("account1");
@@ -105,15 +103,11 @@ contract BlockListRegistryUnitTest is Test, BlockListRegistry {
             blocklist.clearBlockList();
         } else {
             // add blocklist operators
-            vm.expectRevert(
-                abi.encodeWithSelector(NotRoleOrOwner.selector, BLOCK_LIST_ADMIN_ROLE)
-            );
+            vm.expectRevert(abi.encodeWithSelector(NotRoleOrOwner.selector, BLOCK_LIST_ADMIN_ROLE));
             blocklist.setBlockListStatus(operators, true);
 
             // clear blocklist
-            vm.expectRevert(
-                abi.encodeWithSelector(NotRoleOrOwner.selector, BLOCK_LIST_ADMIN_ROLE)
-            );
+            vm.expectRevert(abi.encodeWithSelector(NotRoleOrOwner.selector, BLOCK_LIST_ADMIN_ROLE));
             blocklist.clearBlockList();
         }
         vm.stopPrank();

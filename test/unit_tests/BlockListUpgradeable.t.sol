@@ -4,16 +4,17 @@ pragma solidity 0.8.17;
 import "forge-std/Test.sol";
 import {Unauthorized, BlockedOperator} from "../../src/IBlockList.sol";
 import {IBlockListRegistry} from "../../src/IBlockListRegistry.sol";
-import {BlockListMock} from "../mocks/BlockListMock.sol";
+import {BlockListMockUpgradeable} from "../mocks/BlockListMockUpgradeable.sol";
 import {FakeBlockList} from "../mocks/FakeBlockList.sol";
 
-contract BlockListUnitTest is Test {
+contract BlockListUpgradeableUnitTest is Test {
     event BlockListRegistryUpdated(address indexed caller, address indexed oldRegistry, address indexed newRegistry);
 
-    BlockListMock public mockContract;
+    BlockListMockUpgradeable public mockContract;
 
     function setUp() public {
-        mockContract = new BlockListMock(address(0));
+        mockContract = new BlockListMockUpgradeable();
+        mockContract.initialize(address(0));
         mockContract.mint();
     }
 

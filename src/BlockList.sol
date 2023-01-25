@@ -76,6 +76,7 @@ abstract contract BlockList is IBlockList {
 
     /// @inheritdoc IBlockList
     function getBlockListStatus(address operator) public view override returns (bool) {
+        if (address(blockListRegistry).code.length == 0) return false;
         try blockListRegistry.getBlockListStatus(operator) returns (bool isBlocked) {
             return isBlocked;
         } catch {
