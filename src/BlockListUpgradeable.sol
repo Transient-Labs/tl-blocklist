@@ -56,6 +56,7 @@ abstract contract BlockListUpgradeable is Initializable, IBlockList {
     /// @param blockListRegistryAddr - the initial BlockList Registry Address
     function __BlockList_init_unchained(address blockListRegistryAddr) internal onlyInitializing {
         blockListRegistry = IBlockListRegistry(blockListRegistryAddr);
+        emit BlockListRegistryUpdated(msg.sender, address(0), blockListRegistryAddr);
     }
 
     /*//////////////////////////////////////////////////////////////////////////
