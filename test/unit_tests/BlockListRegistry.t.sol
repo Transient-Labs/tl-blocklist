@@ -11,8 +11,10 @@ contract BlockListRegistryUnitTest is Test, BlockListRegistry {
     bytes32 public constant NOT_ADMIN_ROLE = keccak256("NOT_ADMIN_ROLE");
     BlockListRegistry public blocklist;
 
+    constructor() BlockListRegistry(false) {}
+
     function setUp() public {
-        blocklist = new BlockListRegistry();
+        blocklist = new BlockListRegistry(false);
         blocklist.initialize(address(this), initBlockedOperators);
     }
 
