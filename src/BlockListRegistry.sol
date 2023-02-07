@@ -34,6 +34,11 @@ contract BlockListRegistry is IBlockListRegistry, OwnableAccessControlUpgradeabl
                                 Constructor
     //////////////////////////////////////////////////////////////////////////*/
 
+    /// @param disable - disable the initalizer on deployment
+    constructor(bool disable) {
+        if (disable) _disableInitializers();
+    }
+
     /// @param newOwner - the initial owner of this contract
     /// @param initBlockList - initial list of addresses to add to the blocklist
     function initialize(address newOwner, address[] memory initBlockList) external initializer {

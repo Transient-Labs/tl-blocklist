@@ -20,7 +20,7 @@ contract BlockListIntegrationTest is Test {
         blockList.push(address(2));
         blockList.push(address(3));
 
-        blockListRegistryTemplate = address(new BlockListRegistry());
+        blockListRegistryTemplate = address(new BlockListRegistry(true));
         factory = new BlockListRegistryFactory(blockListRegistryTemplate);
         registry = factory.createBlockListRegistry(blockList);
         mockContract = new BlockListMock(registry);
