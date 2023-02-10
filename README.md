@@ -19,8 +19,9 @@ To keep composability with new standards and reduced interaction needed in the f
 ### Mainnet
 | Contract                              | Version | Address                                    |
 | ------------------------------------- | ------- | ------------------------------------------ |
-| BlockListRegistry                     | 3.2.0   |  |
-| BlockListRegistryFactory              | 3.2.0   |  |
+| BlockListRegistry                     | 3.2.0   | 0xa31DCBe2dF53bd70CaB02e25eDca1cB1a771890A |
+| BlockListRegistryFactory              | 3.2.0   | 0xf1d8C4acb1B983f231AC60DF57692dB9747a7133 |
+| TL Curated BlockList Registry         | 1       | 0x56Fe4de01B15BB2AFA969f914692867acaC27ba5 |
 
 ### Goerli
 | Contract                              | Version | Address                                    |
