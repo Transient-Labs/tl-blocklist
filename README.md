@@ -17,18 +17,19 @@ To keep composability with new standards and reduced interaction needed in the f
 ## Deployments
 
 ### Mainnet
-| Contract                              | Version | Address                                    |
-| ------------------------------------- | ------- | ------------------------------------------ |
-| BlockListRegistry                     | 3.2.0   | 0xa31DCBe2dF53bd70CaB02e25eDca1cB1a771890A |
-| BlockListRegistryFactory              | 3.2.0   | 0xf1d8C4acb1B983f231AC60DF57692dB9747a7133 |
-| TL Curated BlockList Registry         | 1       | 0x56Fe4de01B15BB2AFA969f914692867acaC27ba5 |
+| Contract                                     | Version | Address                                    |
+| -------------------------------------------- | ------- | ------------------------------------------ |
+| BlockListRegistry                            | 3.2.0   | 0xa31DCBe2dF53bd70CaB02e25eDca1cB1a771890A |
+| BlockListRegistryFactory                     | 3.2.0   | 0xf1d8C4acb1B983f231AC60DF57692dB9747a7133 |
+| OpenSea Compliant BlockList Registry         |         | 0x56Fe4de01B15BB2AFA969f914692867acaC27ba5 |
+| Blur Compliant BlockList Registry            |         | 0x3b60fB5Dfa39D7641558Cd62c96805457eb8f952 |
 
 ### Goerli
 | Contract                              | Version | Address                                    |
 | ------------------------------------- | ------- | ------------------------------------------ |
 | BlockListRegistry                     | 3.2.0   | 0xB45881316D7Aa9F3f14344eF7c94897b687f5641 |
 | BlockListRegistryFactory              | 3.2.0   | 0xf2E232dA9F4300A06B763dD558AA358fe8DfE8b7 |
-| TL Curated BlockList Registry         | 1       | 0x0d656e3ECFA3D9a9B9792ff33F09Ff5f55cB8316 |
+| TL Test BlockList Registry            |         | 0x0d656e3ECFA3D9a9B9792ff33F09Ff5f55cB8316 |
 
 ## Disclaimer
 We have verified with OpenSea engineers that BlockList is fully compatible with their royalties enforcement system, as of 11/7/2022.
