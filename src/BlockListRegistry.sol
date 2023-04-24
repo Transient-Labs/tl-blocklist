@@ -1,13 +1,5 @@
-// SPDX-License-Identifier: Apache-2.0
-pragma solidity 0.8.17;
-
-/**
- *     ____        _ __    __   ____  _ ________                     __
- *    / __ )__  __(_) /___/ /  / __ \(_) __/ __/__  ________  ____  / /_
- *   / __  / / / / / / __  /  / / / / / /_/ /_/ _ \/ ___/ _ \/ __ \/ __/
- *  / /_/ / /_/ / / / /_/ /  / /_/ / / __/ __/  __/ /  /  __/ / / / /_
- * /_____/\__,_/_/_/\__,_/  /_____/_/_/ /_/  \___/_/   \___/_/ /_/\__/
- */
+// SPDX-License-Identifier: MIT
+pragma solidity 0.8.19;
 
 import {ERC165Upgradeable} from "openzeppelin-upgradeable/utils/introspection/ERC165Upgradeable.sol";
 import {OwnableAccessControlUpgradeable} from "tl-sol-tools/upgradeable/access/OwnableAccessControlUpgradeable.sol";
@@ -17,6 +9,7 @@ import {IBlockListRegistry} from "./IBlockListRegistry.sol";
 /// @notice abstract contract that can be inherited to block
 ///         approvals from non-royalty paying marketplaces
 /// @author transientlabs.xyz
+/// @custom:version 4.0.0
 contract BlockListRegistry is IBlockListRegistry, OwnableAccessControlUpgradeable, ERC165Upgradeable {
     /*//////////////////////////////////////////////////////////////////////////
                                     Constants
