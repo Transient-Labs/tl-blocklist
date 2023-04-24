@@ -1,13 +1,5 @@
-// SPDX-License-Identifier: Apache-2.0
-pragma solidity 0.8.17;
-
-/**
- *     ____        _ __    __   ____  _ ________                     __
- *    / __ )__  __(_) /___/ /  / __ \(_) __/ __/__  ________  ____  / /_
- *   / __  / / / / / / __  /  / / / / / /_/ /_/ _ \/ ___/ _ \/ __ \/ __/
- *  / /_/ / /_/ / / / /_/ /  / /_/ / / __/ __/  __/ /  /  __/ / / / /_
- * /_____/\__,_/_/_/\__,_/  /_____/_/_/ /_/  \___/_/   \___/_/ /_/\__/
- */
+// SPDX-License-Identifier: MIT
+pragma solidity 0.8.19;
 
 import {Ownable} from "openzeppelin/access/Ownable.sol";
 import {Clones} from "openzeppelin/proxy/Clones.sol";
@@ -16,7 +8,7 @@ import {BlockListRegistry} from "./BlockListRegistry.sol";
 /// @title BlockListFactory
 /// @notice contract factory to deploy blocklist registries.
 /// @author transientlabs.xyz
-
+/// @custom:version 4.0.0
 contract BlockListRegistryFactory is Ownable {
     /*//////////////////////////////////////////////////////////////////////////
                                 Events

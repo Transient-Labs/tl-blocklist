@@ -1,23 +1,15 @@
-// SPDX-License-Identifier: Apache-2.0
+// SPDX-License-Identifier: MIT
 
-pragma solidity 0.8.17;
-
-/// @title BlockList
-/// @author transientlabs.xyz
-
-/**
- *     ____        _ __    __   ____  _ ________                     __
- *    / __ )__  __(_) /___/ /  / __ \(_) __/ __/__  ________  ____  / /_
- *   / __  / / / / / / __  /  / / / / / /_/ /_/ _ \/ ___/ _ \/ __ \/ __/
- *  / /_/ / /_/ / / / /_/ /  / /_/ / / __/ __/  __/ /  /  __/ / / / /_
- * /_____/\__,_/_/_/\__,_/  /_____/_/_/ /_/  \___/_/   \___/_/ /_/\__/
- */
+pragma solidity 0.8.19;
 
 import {BlockedOperator, Unauthorized, IBlockList} from "./IBlockList.sol";
 import {IBlockListRegistry} from "./IBlockListRegistry.sol";
 
+/// @title BlockList
+/// @author transientlabs.xyz
 /// @notice abstract contract that can be inherited to block
 ///         approvals from non-royalty paying marketplaces
+/// @custom:version 4.0.0
 abstract contract BlockList is IBlockList {
     /*//////////////////////////////////////////////////////////////////////////
                                 Public State Variables
