@@ -5,7 +5,6 @@ import "forge-std/Test.sol";
 import {BlockListRegistryFactory} from "../../src/BlockListRegistryFactory.sol";
 
 contract BlockListRegistryFactoryUnitTest is Test {
-
     BlockListRegistryFactory public factory;
 
     event BlockListRegistryCreated(address indexed creator, address indexed template, address indexed registryAddress);

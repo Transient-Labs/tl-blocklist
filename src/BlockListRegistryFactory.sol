@@ -48,7 +48,7 @@ contract BlockListRegistryFactory is Ownable {
     /// @notice Creates a new blocklist registry with an initial list that can be added to later.
     /// @param initBlockList Initial list to active on the blocklist registry.
     /// @return address with the registry address
-    function createBlockListRegistry(address[] calldata initBlockList) external returns(address) {
+    function createBlockListRegistry(address[] calldata initBlockList) external returns (address) {
         address registry = Clones.clone(blockListRegistryTemplate);
         BlockListRegistry(registry).initialize(msg.sender, initBlockList);
         emit BlockListRegistryCreated(msg.sender, blockListRegistryTemplate, registry);
