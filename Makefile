@@ -16,7 +16,7 @@ install:
 	forge install OpenZeppelin/openzeppelin-contracts@v4.8.3
 	forge install OpenZeppelin/openzeppelin-contracts-upgradeable@v4.8.3
 	forge install Transient-Labs/tl-sol-tools@2.2.1
-	
+
 # Update modules
 update: remove install
 
@@ -25,5 +25,5 @@ build:
 	forge fmt && forge clean && forge build
 
 # Tests
-test-suite:
+tests:
 	forge test --gas-report -vvv
