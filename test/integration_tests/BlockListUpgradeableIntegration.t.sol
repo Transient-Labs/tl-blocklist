@@ -8,7 +8,6 @@ import {BlockListRegistry, IBlockListRegistry} from "../../src/BlockListRegistry
 import {BlockListMockUpgradeable} from "../mocks/BlockListMockUpgradeable.sol";
 
 contract BlockListUpgradeableIntegrationTest is Test {
-
     address public blockListRegistryTemplate;
     address public registry;
     BlockListRegistryFactory public factory;

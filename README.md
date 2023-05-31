@@ -15,21 +15,12 @@ To implement BlockList, simply inherit `BlockList.sol`.
 To keep composability with new standards and reduced interaction needed in the future, BlockList is implemented as a blocker rather than an allower. We welcome feedback on this.
 
 ## Deployments
+See https://docs.transientlabs.xyz/blocklist/implementation for the latest deployments
 
-### Mainnet
-| Contract                                     | Version | Address                                    |
-| -------------------------------------------- | ------- | ------------------------------------------ |
-| BlockListRegistry                            | 3.2.0   | 0xa31DCBe2dF53bd70CaB02e25eDca1cB1a771890A |
-| BlockListRegistryFactory                     | 3.2.0   | 0xf1d8C4acb1B983f231AC60DF57692dB9747a7133 |
-| OpenSea Compliant BlockList Registry         |         | 0x56Fe4de01B15BB2AFA969f914692867acaC27ba5 |
-| Blur Compliant BlockList Registry            |         | 0x3b60fB5Dfa39D7641558Cd62c96805457eb8f952 |
+## Usage
+When cloning this repo, the proper way to install or update the submodules installed with foundry is to run `make remove && make install` or `make update`. 
 
-### Goerli
-| Contract                              | Version | Address                                    |
-| ------------------------------------- | ------- | ------------------------------------------ |
-| BlockListRegistry                     | 3.2.0   | 0xB45881316D7Aa9F3f14344eF7c94897b687f5641 |
-| BlockListRegistryFactory              | 3.2.0   | 0xf2E232dA9F4300A06B763dD558AA358fe8DfE8b7 |
-| TL Test BlockList Registry            |         | 0x0d656e3ECFA3D9a9B9792ff33F09Ff5f55cB8316 |
+Other methods of installing, such as `forge install` or `forge update` are not guaranteed to install the proper modules and you run a risk of installing modules with breaking changes.
 
 ## Disclaimer
 We have verified with OpenSea engineers that BlockList is fully compatible with their royalties enforcement system, as of 11/7/2022.
@@ -39,4 +30,4 @@ This codebase is provided on an "as is" and "as available" basis.
 We do not give any warranties and will not be liable for any loss incurred through any use of this codebase.
 
 ## License
-This code is copyright Transient Labs, Inc 2022 and is licensed under the MIT license.
+This code is copyright Transient Labs, Inc 2023 and is licensed under the MIT license.
