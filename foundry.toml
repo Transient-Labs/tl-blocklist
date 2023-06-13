@@ -18,4 +18,4 @@ gas_reports = ["*"]
 fs_permissions = [{ access = 'read', path = './test/file_utils'}] 
 
 [fuzz]
-runs = 1000
+runs = 2000
