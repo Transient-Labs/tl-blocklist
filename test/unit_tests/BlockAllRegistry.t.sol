@@ -4,7 +4,7 @@ pragma solidity 0.8.19;
 import "forge-std/Test.sol";
 import {BlockAllRegistry} from "../../src/BlockAllRegistry.sol";
 
-contract BlockListRegistryUnitTest is Test {
+contract BlockAllRegistryUnitTest is Test {
 
     BlockAllRegistry public registry;
 
