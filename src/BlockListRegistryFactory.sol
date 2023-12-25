@@ -1,8 +1,8 @@
 // SPDX-License-Identifier: MIT
 pragma solidity 0.8.19;
 
-import {Ownable} from "lib/openzeppelin-contracts/contracts/access/Ownable.sol";
-import {Clones} from "lib/openzeppelin-contracts/contracts/proxy/Clones.sol";
+import {Ownable} from "openzeppelin/access/Ownable.sol";
+import {Clones} from "openzeppelin/proxy/Clones.sol";
 import {BlockListRegistry} from "src/BlockListRegistry.sol";
 
 /// @title BlockListFactory

@@ -2,9 +2,9 @@
 pragma solidity 0.8.19;
 
 import "forge-std/Test.sol";
-import {NotRoleOrOwner} from "lib/tl-sol-tools/src/access/OwnableAccessControl.sol";
+import {NotRoleOrOwner} from "tl-sol-tools/access/OwnableAccessControl.sol";
 import {BlockListRegistry, IBlockListRegistry} from "src/BlockListRegistry.sol";
-import {IERC165Upgradeable} from "lib/openzeppelin-contracts-upgradeable/contracts/utils/introspection/IERC165Upgradeable.sol";
+import {IERC165Upgradeable} from "openzeppelin-upgradeable/utils/introspection/IERC165Upgradeable.sol";
 
 contract BlockListRegistryUnitTest is Test, BlockListRegistry {
     address[] public initBlockedOperators = [address(1), address(2), address(3)];

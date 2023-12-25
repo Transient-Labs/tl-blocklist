@@ -2,7 +2,7 @@
 pragma solidity 0.8.19;
 
 import {ERC165Upgradeable} from "openzeppelin-upgradeable/utils/introspection/ERC165Upgradeable.sol";
-import {OwnableAccessControlUpgradeable} from "lib/tl-sol-tools/src/upgradeable/access/OwnableAccessControlUpgradeable.sol";
+import {OwnableAccessControlUpgradeable} from "tl-sol-tools/upgradeable/access/OwnableAccessControlUpgradeable.sol";
 import {IBlockListRegistry} from "src/IBlockListRegistry.sol";
 
 /// @title BlockListRegistry
