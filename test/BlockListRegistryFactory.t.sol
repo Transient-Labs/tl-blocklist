@@ -2,7 +2,7 @@
 pragma solidity 0.8.19;
 
 import "forge-std/Test.sol";
-import {BlockListRegistryFactory} from "../../src/BlockListRegistryFactory.sol";
+import {BlockListRegistryFactory} from "src/BlockListRegistryFactory.sol";
 
 contract BlockListRegistryFactoryUnitTest is Test {
     BlockListRegistryFactory public factory;

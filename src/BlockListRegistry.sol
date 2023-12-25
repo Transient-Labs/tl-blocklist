@@ -2,18 +2,19 @@
 pragma solidity 0.8.19;
 
 import {ERC165Upgradeable} from "openzeppelin-upgradeable/utils/introspection/ERC165Upgradeable.sol";
-import {OwnableAccessControlUpgradeable} from "tl-sol-tools/upgradeable/access/OwnableAccessControlUpgradeable.sol";
-import {IBlockListRegistry} from "./IBlockListRegistry.sol";
+import {OwnableAccessControlUpgradeable} from "lib/tl-sol-tools/src/upgradeable/access/OwnableAccessControlUpgradeable.sol";
+import {IBlockListRegistry} from "src/IBlockListRegistry.sol";
 
-/// @title BlockList
-/// @notice abstract contract that can be inherited to block
-///         approvals from non-royalty paying marketplaces
+/// @title BlockListRegistry
+/// @notice Registry that can be used to block approvals from non-royalty paying marketplaces
 /// @author transientlabs.xyz
 /// @custom:version 4.0.0
 contract BlockListRegistry is IBlockListRegistry, OwnableAccessControlUpgradeable, ERC165Upgradeable {
+
     /*//////////////////////////////////////////////////////////////////////////
                                     Constants
     //////////////////////////////////////////////////////////////////////////*/
+
     bytes32 public constant BLOCK_LIST_ADMIN_ROLE = keccak256("BLOCK_LIST_ADMIN_ROLE");
 
     /*//////////////////////////////////////////////////////////////////////////
@@ -27,13 +28,14 @@ contract BlockListRegistry is IBlockListRegistry, OwnableAccessControlUpgradeabl
                                 Constructor
     //////////////////////////////////////////////////////////////////////////*/
 
-    /// @param disable - disable the initalizer on deployment
+    /// @param disable Disable the initalizer on deployment
     constructor(bool disable) {
         if (disable) _disableInitializers();
     }
 
-    /// @param newOwner - the initial owner of this contract
-    /// @param initBlockList - initial list of addresses to add to the blocklist
+    /// @notice Function that can be called once to initialize the registry
+    /// @param newOwner The initial owner of this contract
+    /// @param initBlockList Initial list of addresses to add to the blocklist
     function initialize(address newOwner, address[] memory initBlockList) external initializer {
         uint256 len = initBlockList.length;
         for (uint8 i = 0; i < len; i++) {
@@ -46,11 +48,8 @@ contract BlockListRegistry is IBlockListRegistry, OwnableAccessControlUpgradeabl
                             Admin Functions
     //////////////////////////////////////////////////////////////////////////*/
 
-    /// @notice function to clear the block list status
-    /// @dev must be called by the blockList owner or admin
-    /// @dev the blockList owner is likely the same as the owner of the token contract
-    ///      but this could be different under certain applications. This implementation
-    ///      makes no assumption of this though as it is standalone from the token contract.
+    /// @inheritdoc IBlockListRegistry
+    /// @dev Must be called by the blockList owner or blocklist admin
     function clearBlockList() external onlyRoleOrOwner(BLOCK_LIST_ADMIN_ROLE) {
         _c++;
         emit BlockListCleared(msg.sender);
@@ -60,8 +59,7 @@ contract BlockListRegistry is IBlockListRegistry, OwnableAccessControlUpgradeabl
                           Public Read Functions
     //////////////////////////////////////////////////////////////////////////*/
 
-    /// @notice function to get blocklist status with True meaning that the operator is blocked
-    /// @param operator - the address to check on the BlockList
+    /// @inheritdoc IBlockListRegistry
     function getBlockListStatus(address operator) public view returns (bool) {
         return _getBlockListStatus(operator);
     }
@@ -75,11 +73,7 @@ contract BlockListRegistry is IBlockListRegistry, OwnableAccessControlUpgradeabl
                           Public Write Functions
     //////////////////////////////////////////////////////////////////////////*/
 
-    /// @notice function to set the block list status for multiple operators
-    /// @dev must be called by the blockList owner or admin
-    /// @dev the blockList owner is likely the same as the owner of the token contract
-    ///      but this could be different under certain applications. This implementation
-    ///      makes no assumption of this though as it is standalone from the token contract.
+    /// @inheritdoc IBlockListRegistry
     function setBlockListStatus(address[] calldata operators, bool status)
         external
         onlyRoleOrOwner(BLOCK_LIST_ADMIN_ROLE)
@@ -93,15 +87,15 @@ contract BlockListRegistry is IBlockListRegistry, OwnableAccessControlUpgradeabl
                             Internal Functions
     //////////////////////////////////////////////////////////////////////////*/
 
-    /// @notice internal function to get blockList status
-    /// @param operator - the address for which to get the BlockList status
+    /// @notice Internal function to get blockList status
+    /// @param operator The address for which to get the BlockList status
     function _getBlockListStatus(address operator) internal view returns (bool) {
         return _blockList[_c][operator];
     }
 
-    /// @notice internal function to set blockList status for one operator
-    /// @param operator - address to set the status for
-    /// @param status - True means add to the BlockList
+    /// @notice Internal function to set blockList status for one operator
+    /// @param operator Address to set the status for
+    /// @param status True means add to the BlockList
     function _setBlockListStatus(address operator, bool status) internal {
         _blockList[_c][operator] = status;
         emit BlockListStatusChange(msg.sender, operator, status);

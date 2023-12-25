@@ -1,12 +1,12 @@
 // SPDX-License-Identifier: MIT
 pragma solidity 0.8.19;
 
-import {Ownable} from "openzeppelin/access/Ownable.sol";
-import {Clones} from "openzeppelin/proxy/Clones.sol";
-import {BlockListRegistry} from "./BlockListRegistry.sol";
+import {Ownable} from "lib/openzeppelin-contracts/contracts/access/Ownable.sol";
+import {Clones} from "lib/openzeppelin-contracts/contracts/proxy/Clones.sol";
+import {BlockListRegistry} from "src/BlockListRegistry.sol";
 
 /// @title BlockListFactory
-/// @notice contract factory to deploy blocklist registries.
+/// @notice Contract factory to deploy blocklist registries.
 /// @author transientlabs.xyz
 /// @custom:version 4.0.0
 contract BlockListRegistryFactory is Ownable {
@@ -26,6 +26,7 @@ contract BlockListRegistryFactory is Ownable {
     /*//////////////////////////////////////////////////////////////////////////
                                 Constructor
     //////////////////////////////////////////////////////////////////////////*/
+
     constructor(address initRegistryTemplate) Ownable() {
         blockListRegistryTemplate = initRegistryTemplate;
     }
@@ -35,8 +36,8 @@ contract BlockListRegistryFactory is Ownable {
     //////////////////////////////////////////////////////////////////////////*/
 
     /// @notice Update the address of the blocklist registry template used.
-    /// @param newBlockListRegistryTemplate Address of template to be used by clones.
     /// @dev Must be contract owner to call.
+    /// @param newBlockListRegistryTemplate Address of template to be used by clones.
     function setBlockListRegistryTemplate(address newBlockListRegistryTemplate) external onlyOwner {
         blockListRegistryTemplate = newBlockListRegistryTemplate;
     }

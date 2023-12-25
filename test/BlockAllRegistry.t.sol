@@ -2,7 +2,7 @@
 pragma solidity 0.8.19;
 
 import "forge-std/Test.sol";
-import {BlockAllRegistry} from "../../src/BlockAllRegistry.sol";
+import {BlockAllRegistry} from "src/BlockAllRegistry.sol";
 
 contract BlockAllRegistryUnitTest is Test {
 
