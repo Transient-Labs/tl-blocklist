@@ -3,7 +3,7 @@ pragma solidity 0.8.19;
 
 import "forge-std/Test.sol";
 import {NotRoleOrOwner} from "tl-sol-tools/access/OwnableAccessControl.sol";
-import {BlockListRegistry, IBlockListRegistry} from "../../src/BlockListRegistry.sol";
+import {BlockListRegistry, IBlockListRegistry} from "src/BlockListRegistry.sol";
 import {IERC165Upgradeable} from "openzeppelin-upgradeable/utils/introspection/IERC165Upgradeable.sol";
 
 contract BlockListRegistryUnitTest is Test, BlockListRegistry {

@@ -2,9 +2,9 @@
 pragma solidity 0.8.19;
 
 /// @title BlockList Registry
-/// @notice interface for the BlockListRegistry Contract
+/// @notice Interface for the BlockListRegistry Contract
 /// @author transientlabs.xyz
-/// @custom:version 4.0.0
+/// @custom:version 4.0.2
 interface IBlockListRegistry {
     /*//////////////////////////////////////////////////////////////////////////
                                 Events
@@ -18,18 +18,21 @@ interface IBlockListRegistry {
                           Public Read Functions
     //////////////////////////////////////////////////////////////////////////*/
 
-    /// @notice function to get blocklist status with True meaning that the operator is blocked
+    /// @notice Function to get blocklist status with True meaning that the operator is blocked
+    /// @param operator The operator in question to check against the blocklist
     function getBlockListStatus(address operator) external view returns (bool);
 
     /*//////////////////////////////////////////////////////////////////////////
                           Public Write Functions
     //////////////////////////////////////////////////////////////////////////*/
 
-    /// @notice function to set the block list status for multiple operators
-    /// @dev must be called by the blockList owner
+    /// @notice Function to set the block list status for multiple operators
+    /// @dev Must be called by the blockList owner
+    /// @param operators An address array of operators to set a status for
+    /// @param status The status to set for all `operators`
     function setBlockListStatus(address[] calldata operators, bool status) external;
 
-    /// @notice function to clear the block list status
-    /// @dev must be called by the blockList owner
+    /// @notice Function to clear the block list status
+    /// @dev Must be called by the blockList owner
     function clearBlockList() external;
 }

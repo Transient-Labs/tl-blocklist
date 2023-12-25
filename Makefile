@@ -13,8 +13,6 @@ remove:
 # Install the Modules
 install:
 	forge install foundry-rs/forge-std
-	forge install OpenZeppelin/openzeppelin-contracts@v4.8.3
-	forge install OpenZeppelin/openzeppelin-contracts-upgradeable@v4.8.3
 	forge install Transient-Labs/tl-sol-tools@2.2.1
 
 # Update modules
