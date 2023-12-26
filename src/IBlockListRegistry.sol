@@ -1,10 +1,10 @@
 // SPDX-License-Identifier: MIT
-pragma solidity 0.8.19;
+pragma solidity ^0.8.19;
 
 /// @title BlockList Registry
 /// @notice Interface for the BlockListRegistry Contract
 /// @author transientlabs.xyz
-/// @custom:version 4.0.2
+/// @custom:version 4.0.3
 interface IBlockListRegistry {
     /*//////////////////////////////////////////////////////////////////////////
                                 Events

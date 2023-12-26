@@ -5,7 +5,6 @@ import "forge-std/Test.sol";
 import {BlockAllRegistry} from "src/BlockAllRegistry.sol";
 
 contract BlockAllRegistryUnitTest is Test {
-
     BlockAllRegistry public registry;
 
     function setUp() public {

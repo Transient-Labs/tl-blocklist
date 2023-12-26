@@ -10,7 +10,6 @@ import {IBlockListRegistry} from "src/IBlockListRegistry.sol";
 /// @author transientlabs.xyz
 /// @custom:version 4.0.0
 contract BlockListRegistry is IBlockListRegistry, OwnableAccessControlUpgradeable, ERC165Upgradeable {
-
     /*//////////////////////////////////////////////////////////////////////////
                                     Constants
     //////////////////////////////////////////////////////////////////////////*/
