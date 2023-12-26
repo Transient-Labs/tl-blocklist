@@ -8,14 +8,13 @@ import {IBlockListRegistry} from "src/IBlockListRegistry.sol";
 /// @author transientlabs.xyz
 /// @custom:version 4.0.2
 contract BlockAllRegistry is IBlockListRegistry {
-    
     /// @inheritdoc IBlockListRegistry
-    function getBlockListStatus(address /*operator*/) external pure override returns(bool) {
+    function getBlockListStatus(address /*operator*/ ) external pure override returns (bool) {
         return true;
     }
 
     /// @inheritdoc IBlockListRegistry
-    function setBlockListStatus(address[] calldata /*operators*/, bool /*status*/) external pure override {
+    function setBlockListStatus(address[] calldata, /*operators*/ bool /*status*/ ) external pure override {
         revert();
     }
 
@@ -23,5 +22,4 @@ contract BlockAllRegistry is IBlockListRegistry {
     function clearBlockList() external pure override {
         revert();
     }
-
 }
