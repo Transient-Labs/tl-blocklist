@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity 0.8.19;
+pragma solidity 0.8.22;
 
 import {ERC165Upgradeable} from "openzeppelin-upgradeable/utils/introspection/ERC165Upgradeable.sol";
 import {OwnableAccessControlUpgradeable} from "tl-sol-tools/upgradeable/access/OwnableAccessControlUpgradeable.sol";
@@ -8,7 +8,7 @@ import {IBlockListRegistry} from "src/IBlockListRegistry.sol";
 /// @title BlockListRegistry
 /// @notice Registry that can be used to block approvals from non-royalty paying marketplaces
 /// @author transientlabs.xyz
-/// @custom:version 4.0.0
+/// @custom:version 4.1.0
 contract BlockListRegistry is IBlockListRegistry, OwnableAccessControlUpgradeable, ERC165Upgradeable {
     /*//////////////////////////////////////////////////////////////////////////
                                     Constants
