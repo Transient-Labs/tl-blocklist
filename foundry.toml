@@ -1,19 +1,32 @@
 [profile.default]
-src = 'src'                                                   # the source directory
-test = 'test'                                                 # the test directory
-out = 'out'                                                   # the output directory (for artifacts)
-libs = ['lib']                                                # a list of library directories
-libraries = []                                                # a list of deployed libraries to link against
-cache = true                                                  # whether to cache builds or not
-force = false                                                 # whether to ignore the cache (clean build)
-auto_detect_solc = true                                       # enable auto-detection of the appropriate solc version to use
-offline = false                                               # disable downloading of missing solc version(s)
-optimizer = true                                              # enable or disable the solc optimizer
-optimizer_runs = 2000                                         # the number of optimizer runs
-verbosity = 3                                                 # the verbosity of tests
-ffi = false                                                   # whether to enable ffi or not
-gas_reports = ["*"]   
-fs_permissions = [{ access = 'read', path = './test/file_utils'}] 
+src = 'src'
+test = 'test'
+out = 'out'
+libs = ['lib']
+evm_version = 'paris'
+auto_detect_solc = true
+optimizer = true
+optimizer_runs = 20000
+verbosity = 3
+wrap_comments = true
+gas_reports = ["TLUniversalDeployer"]
+fs_permissions = [{ access = "read-write", path = "./"}]
 
 [fuzz]
-runs = 20000
+runs = 1024
+
+[rpc_endpoints]
+sepolia = "${SEPOLIA_RPC_URL}"
+arbitrum_sepolia = "${ARB_SEPOLIA_RPC_URL}"
+base_sepolia = "${BASE_SEPOLIA_RPC_URL}"
+mainnet = "${ETH_RPC_URL}"
+arbitrum = "${ARB_RPC_URL}"
+base = "${BASE_RPC_URL}"
+
+[etherscan]
+sepolia = { key = "${ETHERSCAN_KEY}" }
+arbitrum_sepolia = { chain = "arbitrum-sepolia", key = "${ARBISCAN_KEY}", url = "https://api-sepolia.arbiscan.io/api" }
+base_sepolia = { chain = "base-sepolia", key = "${BASESCAN_KEY}", url = "https://api-sepolia.basescan.org/api" }
+mainnet = { key = "${ETHERSCAN_KEY}"}
+arbitrum = { key = "${ARBISCAN_KEY}", url = "https://api.arbiscan.io/api" }
+base = { key = "${BASESCAN_KEY}", url = "https://api.basescan.org/api" }
