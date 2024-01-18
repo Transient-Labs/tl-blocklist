@@ -1,12 +1,12 @@
 // SPDX-License-Identifier: MIT
-pragma solidity 0.8.19;
+pragma solidity 0.8.22;
 
 import {IBlockListRegistry} from "src/IBlockListRegistry.sol";
 
 /// @title BlockAllRegistry
 /// @notice BlockList that blocks all approvals and can be used as a semi-soulbound token
 /// @author transientlabs.xyz
-/// @custom:version 4.0.2
+/// @custom:version 4.1.0
 contract BlockAllRegistry is IBlockListRegistry {
     /// @inheritdoc IBlockListRegistry
     function getBlockListStatus(address /*operator*/ ) external pure override returns (bool) {

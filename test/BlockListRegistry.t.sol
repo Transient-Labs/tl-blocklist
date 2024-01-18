@@ -1,10 +1,10 @@
 // SPDX-License-Identifier: MIT
-pragma solidity 0.8.19;
+pragma solidity 0.8.22;
 
 import "forge-std/Test.sol";
-import {NotRoleOrOwner} from "tl-sol-tools/access/OwnableAccessControl.sol";
+import {OwnableAccessControl} from "tl-sol-tools/access/OwnableAccessControl.sol";
 import {BlockListRegistry, IBlockListRegistry} from "src/BlockListRegistry.sol";
-import {IERC165Upgradeable} from "openzeppelin-upgradeable/utils/introspection/IERC165Upgradeable.sol";
+import {IERC165} from "openzeppelin/interfaces/IERC165.sol";
 
 contract BlockListRegistryUnitTest is Test, BlockListRegistry {
     address[] public initBlockedOperators = [address(1), address(2), address(3)];
@@ -39,7 +39,7 @@ contract BlockListRegistryUnitTest is Test, BlockListRegistry {
 
     function testSupportsInterface() public {
         assertTrue(blocklist.supportsInterface(type(IBlockListRegistry).interfaceId));
-        assertTrue(blocklist.supportsInterface(type(IERC165Upgradeable).interfaceId));
+        assertTrue(blocklist.supportsInterface(type(IERC165).interfaceId));
     }
 
     function testSetBlockListStatus() public {
@@ -105,11 +105,11 @@ contract BlockListRegistryUnitTest is Test, BlockListRegistry {
             blocklist.clearBlockList();
         } else {
             // add blocklist operators
-            vm.expectRevert(abi.encodeWithSelector(NotRoleOrOwner.selector, BLOCK_LIST_ADMIN_ROLE));
+            vm.expectRevert(abi.encodeWithSelector(OwnableAccessControl.NotRoleOrOwner.selector, BLOCK_LIST_ADMIN_ROLE));
             blocklist.setBlockListStatus(operators, true);
 
             // clear blocklist
-            vm.expectRevert(abi.encodeWithSelector(NotRoleOrOwner.selector, BLOCK_LIST_ADMIN_ROLE));
+            vm.expectRevert(abi.encodeWithSelector(OwnableAccessControl.NotRoleOrOwner.selector, BLOCK_LIST_ADMIN_ROLE));
             blocklist.clearBlockList();
         }
         vm.stopPrank();
